@@ -1,25 +1,31 @@
 package com.infnet.produtoservice.controller;
 
 import com.infnet.produtoservice.model.Produto;
+import com.infnet.produtoservice.repository.ProdutoRepository;
 import com.infnet.produtoservice.service.ProdutoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
-    private final ProdutoService produtoService;
-
-    public ProdutoController(ProdutoService produtoService) {
-        this.produtoService = produtoService;
+    public ProdutoController(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
     }
 
     @GetMapping
     public Flux<Produto> getAll() {
-        return produtoService.findAll();
+        return produtoRepository.findAll();
+    }
+
+    @PostMapping
+    public Mono<Produto> save(@RequestBody Produto produto) {
+        return produtoRepository.save(produto);
     }
 
 }
