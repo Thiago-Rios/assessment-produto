@@ -11,7 +11,7 @@ public class ProdutoWebClient {
     private final WebClient webClient;
 
     public ProdutoWebClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8080/api/produtos").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8082/api/produtos").build();
     }
 
     public Flux<Produto> getAllProdutos() {
@@ -39,5 +39,13 @@ public class ProdutoWebClient {
                 .uri("/{id}", id)
                 .retrieve()
                 .bodyToMono(Void.class);
+    }
+
+    public Mono<Produto> updateProduto(Long id, Produto produto) {
+        return webClient.put()
+                .uri("/{id}", id)
+                .bodyValue(produto)
+                .retrieve()
+                .bodyToMono(Produto.class);
     }
 }

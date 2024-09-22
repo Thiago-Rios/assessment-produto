@@ -30,4 +30,14 @@ public class ProdutoController {
         return produtoRepository.save(produto);
     }
 
+    @GetMapping("/{id}")
+    public Mono<Produto> findById(@PathVariable Long id) {
+        return produtoRepository.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> delete(@PathVariable Long id) {
+        return produtoRepository.deleteById(id);
+    }
+
 }
