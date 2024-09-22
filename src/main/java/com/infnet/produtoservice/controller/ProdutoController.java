@@ -3,6 +3,7 @@ package com.infnet.produtoservice.controller;
 import com.infnet.produtoservice.model.Produto;
 import com.infnet.produtoservice.repository.ProdutoRepository;
 import com.infnet.produtoservice.service.ProdutoService;
+import com.infnet.produtoservice.service.ProdutoWebClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -13,6 +14,7 @@ import reactor.core.publisher.Mono;
 public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
+    private ProdutoWebClient produtoWebClient;
 
     public ProdutoController(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
